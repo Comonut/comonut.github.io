@@ -1,27 +1,134 @@
-<!DOCTYPE html>
 <html>
 <head>
-	<title>
-		Alexander Daskalov
-	</title>
-<link rel="stylesheet" type="text/css" href="style.css">
-<meta charset=UTF-8>
+<title>Movie idea generator</title>
+<style>
+	#string {
+		font-size: 110pt;
+	}
+</style>
+
+<script type="text/javascript">
+
+var h = 0;
+
+var values = [];
+var map = [];
+
+
+
+	function findMin(arr){
+
+		var min = 0;
+
+		for (i = 1; i < arr.length ; i++){
+			if(arr[i] < arr[min]){
+				min = i;
+			}
+		}
+
+
+		return min;
+
+	}
+
+
+
+
+	function kNN(k){
+
+		if(k > values.length) return "Click the color that best describes the background";
+
+		var diff = [];
+
+		for(a = 0; a < values.length; a ++){
+			diff.push(Math.abs(values[a] - h));
+		}
+
+		return map[findMin(diff)];
+
+
+
+
+
+	}
+
+
+
+
+	function add(color){
+		values.push(h);
+		map.push(color);
+
+		act();
+	}
+
+
+	function getRandomInt (min, max)
+	{
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+	}
+
+	
+
+
+	
+	function colorChange(c)
+	{
+		
+		
+		document.getElementById("asd").style.backgroundColor = c
+
+		
+
+	}
+
+	function toRgb(h){
+
+		var x = 1 - Math.abs((h/60)%2-1);
+
+	
+
+		if(h < 60) return "rgb("+255+","+Math.floor(x*255)+","+0+")";
+		if(h < 120) return "rgb("+Math.floor(x*255)+","+255+","+0+")";
+		if(h < 180) return "rgb("+0+","+255+","+Math.floor(x*255)+")";
+		if(h < 240) return "rgb("+0+","+Math.floor(x*255)+","+255+")";
+		if(h < 300) return "rgb("+Math.floor(x*255)+","+0+","+255+")";
+		if (h <= 360) return "rgb("+255+","+0+","+Math.floor(x*255)+")";
+
+
+
+	}
+	function act()
+	{
+
+	h = getRandomInt(1,360)
+
+	document.getElementById("string").innerHTML = kNN(3);
+
+	colorChange(toRgb(h));
+
+	}
+	window.onload = act;
+	
+
+</script>
+
 </head>
+<body id = "asd" bgcolor="#6FBAFA" >
 
+<button type="button" onclick="add('Red')">red</button>
+<button type="button" onclick="add('Orange')">orange</button>
+<button type="button" onclick="add('Yellow')">yellow</button>
+<button type="button" onclick="add('Green')">green</button>
+<button type="button" onclick="add('Blue')">blue</button>
+<button type="button" onclick="add('Purple')">purple</button>
+<button type="button" onclick="add('Pink')">pink</button>
+	
+	<h1 align="center"> <div id="string">  </div> </h1>
+	
 
-
-<body>
-
-
-<div id = "header">
-      <h1>Alexander Daskalov </h1>
-</div>
-
-
-
-
-</body>
-
+	
+</body> 
 
 
 
