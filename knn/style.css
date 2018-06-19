@@ -1,0 +1,31 @@
+
+#header{
+	height: 140px;
+	width: 100%;
+	top: 0px;
+	position: fixed;
+	background: black;
+
+	text-align: center;
+
+	/* the next 2 lines make sure that the header stays on top even when scrolling and that it overlaps others divisions*/
+	float:center;	
+	z-index: 10;
+
+
+}
+
+h1{
+
+	margin-right: 33%;
+
+	margin-top: 20pt;
+
+	margin-bottom:  10pt;
+
+
+	color: white;
+
+	font-size: 44pt;
+}
+
