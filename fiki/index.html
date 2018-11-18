@@ -1,36 +1,83 @@
 <html>
 <head>
-<title>Movie idea generator</title>
+<title>Fikibot</title>
 <style>
 	#string {
 		
-		font-size: 110pt;
+		font-size: 40pt;
 	}
-	.button {
-    background-color: #4CAF50; /* Green */
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-}
+
 </style>
 
 <script type="text/javascript">
 
 
+    function getRandomInt (min, max)
+	{
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+	}
+
+
+    function getNext(word, model){
+
+        a = getRandomInt(0,3)
+
+        probs = model[word]
+        
+        bag = []
+
+        for(token in probs){
+            for(var k = 0; k < probs[token]; k++){
+                bag.push(token)
+            }
+        }
+        next = bag[Math.floor(Math.random()*bag.length)];
+        
+        return next
+    }
+
+    function generateSentence(model){
+
+       token = "starttoken"
+
+        sentence = ""
+
+       while(token != "."){
+
+           token = getNext(token, model)
+
+           sentence+= token + " "
+          
+           
+       }
+      
+       return sentence
+        
+    }
+
+    function generateText(model, size){
+        text = "";
+        for( var k = 0; k < size; k++){
+            sent = ". "
+
+            while (sent==". "){
+             sent = generateSentence(model)
+        }
+        console.log(sent)
+        text += sent
+        }
+
+
+        document.getElementById("string").innerHTML =text;
+    }
+
+
 	function act()
 	{
-        fetch("dic.json")
+        fetch("https://raw.githubusercontent.com/Comonut/comonut.github.io/master/fiki/dic.json")
          .then(response => response.json())
-         .then(json => console.log(json));
-	
+         .then(json => generateText(json,3));
 
-	document.getElementById("string").innerHTML ="test123";
-
-	
 
 	}
 	window.onload = act;
@@ -41,13 +88,8 @@
 </head>
 <body id = "asd" bgcolor="#6FBAFA" >
 
-<button type="button" onclick="add('Red')">red</button>
-<button type="button" onclick="add('Orange')">orange</button>
-<button type="button" onclick="add('Yellow')">yellow</button>
-<button type="button" onclick="add('Green')">green</button>
-<button type="button" onclick="add('Blue')">blue</button>
-<button type="button" onclick="add('Purple')">purple</button>
-<button type="button" onclick="add('Pink')">pink</button>
+<button type="button" onclick="act()">Generate</button>
+
 	
 	<h1 align="center"> <div id="string">  </div> </h1>
 	
