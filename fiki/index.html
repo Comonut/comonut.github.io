@@ -1,0 +1,60 @@
+<html>
+<head>
+<title>Movie idea generator</title>
+<style>
+	#string {
+		
+		font-size: 110pt;
+	}
+	.button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+</style>
+
+<script type="text/javascript">
+
+
+	function act()
+	{
+        fetch("dic.json")
+         .then(response => response.json())
+         .then(json => console.log(json));
+	
+
+	document.getElementById("string").innerHTML ="test123";
+
+	
+
+	}
+	window.onload = act;
+	
+
+</script>
+
+</head>
+<body id = "asd" bgcolor="#6FBAFA" >
+
+<button type="button" onclick="add('Red')">red</button>
+<button type="button" onclick="add('Orange')">orange</button>
+<button type="button" onclick="add('Yellow')">yellow</button>
+<button type="button" onclick="add('Green')">green</button>
+<button type="button" onclick="add('Blue')">blue</button>
+<button type="button" onclick="add('Purple')">purple</button>
+<button type="button" onclick="add('Pink')">pink</button>
+	
+	<h1 align="center"> <div id="string">  </div> </h1>
+	
+
+	
+</body> 
+
+
+
+</html>
