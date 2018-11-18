@@ -5,7 +5,30 @@
 	#string {
 		
 		font-size: 40pt;
+        white-space: pre-wrap;
 	}
+    button {
+    position: absolute;
+    width: 100%;
+    display: inline-block;
+    border: none;
+    padding: 1rem 2rem;
+    margin: 0;
+    text-decoration: none;
+    background: #0069ed;
+    color: #ffffff;
+    font-family: sans-serif;
+    font-size: 1rem;
+    line-height: 1;
+    cursor: pointer;
+    text-align: center;
+    transition: background 250ms ease-in-out, transform 150ms ease;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+
+    
 
 </style>
 
@@ -86,9 +109,9 @@
 </script>
 
 </head>
-<body id = "asd" bgcolor="#6FBAFA" >
+<body id = "asd" bgcolor="#ffffff" >
 
-<button type="button" onclick="act()">Generate</button>
+<button type="button" onclick="act()" >Generate</button>
 
 	
 	<h1 align="center"> <div id="string">  </div> </h1>
