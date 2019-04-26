@@ -1,13 +1,45 @@
 <html>
 <head>
-<title>Fikibot</title>
+<title>Some wack shit</title>
 <style>
 	#string {
 		
 		font-size: 40pt;
         white-space: pre-wrap;
         padding-top: 5%;
-	}    
+	}
+
+    #sentence{
+        align-self: center;
+        font-size: 25pt;
+        width: 100%;
+        height: 40%;
+        text-align: center;
+        
+    }
+    button {
+    position: absolute;
+    width: 100%;
+    height: 5%;
+    padding-top: 0%;
+    display: inline-block;
+    border: none;
+    padding: 1rem 2rem;
+    margin: 0;
+    text-decoration: none;
+    background: #ee7600;
+    color: #ffffff;
+    font-family: sans-serif;
+    font-size: 1rem;
+    line-height: 1;
+    cursor: pointer;
+    text-align: center;
+    transition: background 250ms ease-in-out, transform 150ms ease;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+
 </style>
 
 <!-- Load TensorFlow.js -->
@@ -17,10 +49,16 @@
     var index;
 	async function init()
 	{
+        document.getElementById("sentence").value = "Downloading model"
+        document.getElementById("evaluate").disabled = true;
         model =  await tf.loadModel('https://raw.githubusercontent.com/Comonut/smartness-evaluator/master/tfjsmodel/model.json');
         fetch("https://raw.githubusercontent.com/Comonut/smartness-evaluator/master/wordindex.json")
          .then(response => response.json())
          .then(json => index = json);
+
+
+         document.getElementById("sentence").value = "Insert sentence here"
+         document.getElementById("evaluate").disabled = false;
 	}
 
     function sent2vector(sentence)
@@ -47,19 +85,17 @@
 
     function buttonClick(){
         sentence = document.getElementById("sentence").value
-       
-        document.getElementById("string").innerHTML =getPreiction(sentence);
+
+        let smartness = getPreiction(sentence);       
+        document.getElementById("string").innerHTML ="probability of you being a genius = " + Math.round(smartness*100, 2)+"%"
     }
 
 	window.onload = init;
 </script>
-
-</head>
 <body id = "asd" bgcolor="#FFFFFF" >
-<input type="text" name="sentence" id = "sentence">
-<button type="button" onclick="buttonClick()" >Давай фики</button>
-
-	
+    <h1 align="center"> <div id="header">  </div> Sentence smartness evaluator</h1>
+    <input type="text" name="sentence" id = "sentence">
+	<button type="button" id = "evaluate" onclick="buttonClick()" >Evaluate</button>
 	<h1 align="center"> <div id="string">  </div> </h1>
 	
 
