@@ -1,0 +1,71 @@
+<html>
+<head>
+<title>Fikibot</title>
+<style>
+	#string {
+		
+		font-size: 40pt;
+        white-space: pre-wrap;
+        padding-top: 5%;
+	}    
+</style>
+
+<!-- Load TensorFlow.js -->
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.13.5"></script>
+<script type="text/javascript">
+    var model;
+    var index;
+	async function init()
+	{
+        model =  await tf.loadModel('https://raw.githubusercontent.com/Comonut/smartness-evaluator/master/tfjsmodel/model.json');
+        fetch("https://raw.githubusercontent.com/Comonut/smartness-evaluator/master/wordindex.json")
+         .then(response => response.json())
+         .then(json => index = json);
+	}
+
+    function sent2vector(sentence)
+    {
+        var vector = new Array(16977).fill(0);
+        var words = sentence.toLowerCase().split(" ")
+        for (pos = 0; pos < words.length ; pos++){
+            id = index[words[pos]]
+            if(id){
+                vector[id] = 1
+            }
+        }
+
+        return([vector])
+    }
+
+    function getPreiction(sentence){
+
+        vector = sent2vector(sentence)
+        prediction = model.predict(tf.tensor(vector))
+
+        return prediction.get(0,0)
+    }
+
+    function buttonClick(){
+        sentence = document.getElementById("sentence").value
+       
+        document.getElementById("string").innerHTML =getPreiction(sentence);
+    }
+
+	window.onload = init;
+</script>
+
+</head>
+<body id = "asd" bgcolor="#FFFFFF" >
+<input type="text" name="sentence" id = "sentence">
+<button type="button" onclick="buttonClick()" >Давай фики</button>
+
+	
+	<h1 align="center"> <div id="string">  </div> </h1>
+	
+
+	
+</body> 
+
+
+
+</html>
